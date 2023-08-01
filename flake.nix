@@ -21,6 +21,15 @@
       });
     in
     {
+      packages = forAllSystems ({ pkgs }: {
+        default = pkgs.stdenv.mkDerivation {
+          pname = "odhcpd";
+          version = "1.0.0";
+          nativeBuildInputs = [ pkgs.cmake ];
+          buildInputs = with pkgs; [ libnl-tiny libubox uci ];
+          src = odhcp;
+        };
+      });
       devShells = forAllSystems ({ pkgs }: {
         default = pkgs.mkShell {
           nativeBuildInputs = [ pkgs.cmake ];
