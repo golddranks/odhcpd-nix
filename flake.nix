@@ -30,18 +30,5 @@
           src = odhcpd;
         };
       });
-      devShells = forAllSystems ({ pkgs }: {
-        default = pkgs.mkShell {
-          nativeBuildInputs = [ pkgs.cmake ];
-          buildInputs = with pkgs; [ libnl-tiny libubox uci ];
-          src = odhcpd;
-          shellHook = ''
-            rm -rf source
-            unpackPhase
-            cd source
-            cmakeConfigurePhase
-          '';
-        };
-      });
     };
 }
