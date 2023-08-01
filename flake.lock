@@ -14,7 +14,7 @@
         "type": "indirect"
       }
     },
-    "odhcp": {
+    "odhcpd": {
       "flake": false,
       "locked": {
         "lastModified": 1687640229,
@@ -33,7 +33,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "odhcp": "odhcp"
+        "odhcpd": "odhcpd"
       }
     }
   },

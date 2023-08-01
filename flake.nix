@@ -3,13 +3,13 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs";
-    odhcp = {
+    odhcpd = {
       url = "git+https://git.openwrt.org/project/odhcpd.git";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, odhcp }:
+  outputs = { self, nixpkgs, odhcpd }:
     let
       allSystems = [
         "x86_64-linux"
@@ -24,17 +24,17 @@
       packages = forAllSystems ({ pkgs }: {
         default = pkgs.stdenv.mkDerivation {
           pname = "odhcpd";
-          version = "1.0.0";
+          version = "2023-01-16-c9e619f";
           nativeBuildInputs = [ pkgs.cmake ];
           buildInputs = with pkgs; [ libnl-tiny libubox uci ];
-          src = odhcp;
+          src = odhcpd;
         };
       });
       devShells = forAllSystems ({ pkgs }: {
         default = pkgs.mkShell {
           nativeBuildInputs = [ pkgs.cmake ];
           buildInputs = with pkgs; [ libnl-tiny libubox uci ];
-          src = odhcp;
+          src = odhcpd;
           shellHook = ''
             rm -rf source
             unpackPhase
