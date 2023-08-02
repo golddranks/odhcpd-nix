@@ -4,8 +4,10 @@ nix build .
 mkdir -p test_env
 nix copy --to ./test_env $(realpath result) --no-check-sigs
 mkdir -p test_env/bin test_env/dev test_env/etc/config
-nix develop --command cmake --fresh -S src -B src/build
-nix develop --command cmake --build src
-cp src/odhcpd ./test_env/bin/odhcpd
+test -d source || git clone https://git.openwrt.org/project/odhcpd.git source
+nix develop --command cmake -S source -B source/build
+nix develop --command cmake --build source/build
+cp ./source/build/odhcpd ./test_env/bin/odhcpd
+
 sudo chroot ./test_env /bin/odhcpd -l7
 
