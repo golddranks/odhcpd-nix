@@ -26,7 +26,11 @@
           pname = "odhcpd";
           version = "2023-01-16-c9e619f";
           nativeBuildInputs = [ pkgs.cmake ];
-          buildInputs = with pkgs; [ libnl-tiny libubox uci ];
+          buildInputs = with pkgs; [
+            libnl-tiny
+            libubox-nossl
+            (uci.override { libubox = libubox-nossl; })
+          ];
           src = odhcpd;
         };
       });
